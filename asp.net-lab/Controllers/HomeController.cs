@@ -18,34 +18,53 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Calculator([FromQuery] string op, [FromQuery] string a, [FromQuery] string b)
+    public IActionResult Calculator([FromQuery] Operator? op, [FromQuery] string? a, [FromQuery] string? b)
     {
-        double n1 = double.Parse(a);
-        double n2 = double.Parse(b);
+        if (a is null || b is null)
+        {
+            ViewBag.ErrorMessage = "Niepoprawny format liczby w parametrze a lub b!";
+            return View("CustomError");
+        }
+
+        if (op is null)
+        {
+            ViewBag.ErrorMessage = "Nieznany operator!";
+            return View("CustomError");
+        }
+        var n1 = double.Parse(a);
+        var n2 = double.Parse(b);
         double output = 0;
         switch (op)
         {
-            case "add":
+            case Operator.Add:
             {
                 output = n1 + n2;
+                ViewBag.Operator = '+';
                 break;
             }
-            case "sub":
+            case Operator.Sub:
             {
                 output = n1 - n2;
+                ViewBag.Operator = '-';
                 break;
             }
-            case "mul":
+            case Operator.Mul:
             {
                 output = n1 * n2;
+                ViewBag.Operator = '*';
                 break;
             }
-            case "div":
+            case Operator.Div:
             {
                 output = n1 / n2;
+                ViewBag.Operator = '/';
                 break;
             }
         }
+
+        ViewBag.A = n1;
+        ViewBag.B = n2;
+        
         ViewBag.Result = output;
         return View();
     }
@@ -66,4 +85,9 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+}
+
+public enum Operator
+{
+    Add, Sub, Mul, Div
 }
