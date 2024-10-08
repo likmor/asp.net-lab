@@ -72,6 +72,7 @@ public class HomeController : Controller
 
     public IActionResult Age(DateTime birth, DateTime future)
     {
+        
         // if (birth is null || future is null)
         // {
         //     ViewBag.ErrorMessage = "Niepoprawny format birth lub future!";
@@ -85,7 +86,7 @@ public class HomeController : Controller
 
         var output = future.Year - birth.Year;
         if ((birth.Month == future.Month && birth.Day > future.Day) ||
-            (future.Month > birth.Month && future.Day > birth.Day))
+            (birth.Month > future.Month))
         {
             output--;
         }
