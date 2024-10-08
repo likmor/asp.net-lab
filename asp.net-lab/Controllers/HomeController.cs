@@ -13,6 +13,44 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    public IActionResult About()
+    {
+        return View();
+    }
+
+    public IActionResult Calculator([FromQuery] string op, [FromQuery] string a, [FromQuery] string b)
+    {
+        double n1 = double.Parse(a);
+        double n2 = double.Parse(b);
+        double output = 0;
+        switch (op)
+        {
+            case "add":
+            {
+                output = n1 + n2;
+                break;
+            }
+            case "sub":
+            {
+                output = n1 - n2;
+                break;
+            }
+            case "mul":
+            {
+                output = n1 * n2;
+                break;
+            }
+            case "div":
+            {
+                output = n1 / n2;
+                break;
+            }
+        }
+        ViewBag.Result = output;
+        return View();
+    }
+
+
     public IActionResult Index()
     {
         return View();
