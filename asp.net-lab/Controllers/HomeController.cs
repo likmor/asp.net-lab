@@ -31,6 +31,7 @@ public class HomeController : Controller
             ViewBag.ErrorMessage = "Nieznany operator!";
             return View("CustomError");
         }
+
         var n1 = double.Parse(a);
         var n2 = double.Parse(b);
         double output = 0;
@@ -64,13 +65,38 @@ public class HomeController : Controller
 
         ViewBag.A = n1;
         ViewBag.B = n2;
-        
+
         ViewBag.Result = output;
         return View();
     }
 
+    public IActionResult Age(DateTime birth, DateTime future)
+    {
+        // if (birth is null || future is null)
+        // {
+        //     ViewBag.ErrorMessage = "Niepoprawny format birth lub future!";
+        //     return View("CustomError");
+        // }
+        if (birth > future)
+        {
+            ViewBag.ErrorMessage = "Birth nie może być większe niż future!";
+            return View("CustomError");
+        }
 
-    public IActionResult Index()
+        var output = future.Year - birth.Year;
+        if ((birth.Month == future.Month && birth.Day > future.Day) ||
+            (future.Month > birth.Month && future.Day > birth.Day))
+        {
+            output--;
+        }
+
+        ViewBag.Output = output;
+        return View();
+    }
+
+
+
+public IActionResult Index()
     {
         return View();
     }
