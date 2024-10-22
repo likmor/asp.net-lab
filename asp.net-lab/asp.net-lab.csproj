@@ -7,4 +7,8 @@
         <RootNamespace>asp.net_lab</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Pages\" />
+    </ItemGroup>
+
 </Project>
