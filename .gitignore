@@ -3,3 +3,10 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/asp.net-lab/asp.net-lab.csproj.user
+/.vs/asp.net-lab/v17/.wsuo
+/.vs/asp.net-lab/FileContentIndex/c3be2892-74bd-4a90-a173-2c1651ddb90f.vsidx
+/.gitignore
+/.vs/asp.net-lab/v17/.suo
+/.vs/asp.net-lab/FileContentIndex
+/.vs
