@@ -15,12 +15,19 @@ public class ContactModel
     [Required(ErrorMessage = "Musisz podać nazwisko!")]
     [MaxLength(length: 20, ErrorMessage = "Nazwisko nie może być dłuższe niż 50 znaków!")]
     [MinLength(length: 2)]
+    [Display(Name = "Nazwisko")]
     public string LastName { get; set; }
 
-    [EmailAddress] public string Email { get; set; }
+	[Display(Name = "Adres e-mail")]
+
+	[EmailAddress] public string Email { get; set; }
     [DataType(DataType.Date)] public DateOnly BirthDate { get; set; }
 
     [Phone]
-    [RegularExpression("\\d\\d\\ \\d\\d\\d \\d\\d\\d \\d\\d\\d", ErrorMessage = "Wpisz numer wg wzoru: +xx: xxx xxx xxx")]
-    public string PhoneNumber { get; set; }
+    //[RegularExpression("\\d\\d\\ \\d\\d\\d \\d\\d\\d \\d\\d\\d", ErrorMessage = "Wpisz numer wg wzoru: +xx: xxx xxx xxx")]
+	
+    [Display(Name = "Telefon")]
+
+	public string PhoneNumber { get; set; }
+    public Category Category { get; set; }
 }
