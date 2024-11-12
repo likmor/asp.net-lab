@@ -62,6 +62,9 @@ namespace asp.net_lab.Models.Services
 			return _contacts[id];
 		}
 
-
+		public List<OrganizationEntity> GetOrganizations()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

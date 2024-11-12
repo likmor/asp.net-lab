@@ -13,7 +13,9 @@ public class ContactMapper
             Category = model.Category,
             Email = model.Email,
             PhoneNumber = model.PhoneNumber,
-            Created = DateTime.Now
+            Created = DateTime.Now,
+            Organization = model.Organization,
+            OrganizationId = model.OrganizationId
         };
     }
     public static ContactModel FromEntity(ContactEntity entity)
@@ -26,7 +28,9 @@ public class ContactMapper
             BirthDate = entity.BirthDate,
             Category = entity.Category,
             Email = entity.Email,
-            PhoneNumber = entity.PhoneNumber
+            PhoneNumber = entity.PhoneNumber,
+            Organization = entity.Organization,
+            OrganizationId = entity.OrganizationId
         };
     }
 }
