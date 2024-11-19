@@ -1,5 +1,6 @@
 ﻿using asp.net_lab.Models;
 using asp.net_lab.Models.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -22,6 +23,7 @@ public class ContactController : Controller
 	}
 
 	[HttpGet]
+	[Authorize]
 	public IActionResult Add()
 	{
 		var model = new ContactModel();
