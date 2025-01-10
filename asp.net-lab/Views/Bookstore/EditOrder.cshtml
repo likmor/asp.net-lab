@@ -1,0 +1,61 @@
+﻿@model asp.net_lab.Models.Bookstore.OrderModel
+@{
+	ViewBag.Title = "Szczegóły zamówienia";
+	Layout = "_Layout";
+}
+<h2>Szczegóły zamówienia</h2>
+<div>
+	<form asp-action="UpdateOrder" method="post">
+		<div class="mb-3">
+			<label class="form-label" asp-for="OrderDate">@Html.DisplayNameFor(x => x.OrderDate)</label>
+			<input class="form-control" asp-for="OrderDate" readonly></input>
+		</div>
+		<div class="mb-3">
+			<label class="form-label" asp-for="OrderId">@Html.DisplayNameFor(x => x.OrderId)</label>
+			<input class="form-control" asp-for="OrderId" readonly></input>
+		</div>
+		<div class="mb-3">
+			<label class="form-label" asp-for="CustomerId">@Html.DisplayNameFor(x => x.CustomerId)</label>
+			<input class="form-control" asp-for="CustomerId" readonly></input>
+		</div>
+		<div class="mb-3">
+			<label class="form-label" asp-for="ShippingMethodId">@Html.DisplayNameFor(x => x.ShippingMethodId)</label>
+			<input class="form-control" asp-for="ShippingMethodId" readonly></input>
+		</div>
+		<div class="mb-3">
+			<label class="form-label" asp-for="DestAddressId">@Html.DisplayNameFor(x => x.DestAddressId)</label>
+			<input class="form-control" asp-for="DestAddressId" readonly></input>
+		</div>
+		<div class="mb-3">
+			<label class="form-label" asp-for="StatusId">@Html.DisplayNameFor(x => x.StatusId)</label>
+			@if (Model.StatusId < 4)
+			{
+				<select asp-for="StatusId" asp-items="ViewBag.StatusList" class="form-control">
+				</select>
+
+			}else
+			{
+				<fieldset disabled>
+				<select asp-for="StatusId" asp-items="ViewBag.StatusList" class="form-control">
+				</select>
+				</fieldset>
+			}
+		</div>
+			<div class="mb-3">
+
+		@if (Model.StatusId < 4)
+		{
+			<button type="submit" class="btn btn-primary">Zapisz</button>
+		}else
+		{
+				<fieldset disabled>
+				<button type="submit" class="btn btn-primary">Zapisz</button>
+				</fieldset>
+
+		}
+		</div>
+
+
+	</form>
+
+</div>

@@ -1,4 +1,5 @@
 using asp.net_lab.Models;
+using asp.net_lab.Models.Bookstore;
 using asp.net_lab.Models.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddDbContext<BookstoreContext>(options =>
+{
+	options.UseSqlite(builder.Configuration["GravityDatabase:ConnectionString"]);
+});
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     {
@@ -24,6 +29,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddTransient<IContactService, EFContactService>();
+builder.Services.AddTransient<IBookstoreService, EFBookstoreService>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 // builder.Services.AddSingleton<IContactService, MemoryContactService>();
