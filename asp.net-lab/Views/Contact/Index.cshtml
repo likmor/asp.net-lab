@@ -10,47 +10,47 @@
 <h4>Lista kontaktów</h4>
 @if (Model.Count > 0)
 {
-		<table class="table">
-			<thead>
-				<tr>
-					<th>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
 					@Html.DisplayNameFor(m => m[0].FirstName)
-					</th>
-					<th>
+				</th>
+				<th>
 					@Html.DisplayNameFor(m => m[0].LastName)
-					</th>
-					<th>
+				</th>
+				<th>
 					@Html.DisplayNameFor(m => m[0].Category)
-					</th>
-					<th>
-						Operacje
-					</th>
-				</tr>
-			</thead>
-			<tbody>
+				</th>
+				<th>
+					Operacje
+				</th>
+			</tr>
+		</thead>
+		<tbody>
 			@foreach (var entry in @Model)
 			{
-						<tr>
-							<td>
+				<tr>
+					<td>
 						@entry.FirstName
-							</td>
-							<td>
+					</td>
+					<td>
 						@entry.LastName
-							</td>
-							<td>
+					</td>
+					<td>
 						@entry.Category.GetDisplayName()
-							</td>
-							<td>
-										<a class="btn btn-danger" asp-action="Edit" asp-route-id=@entry.Id>Edycja</a>
-								<a>Szczególy</a>
-								<a class="btn btn-danger" asp-action="Delete" asp-route-id=@entry.Id>Usuń</a>
-							</td>
-						</tr>
+					</td>
+					<td>
+								<a class="btn btn-danger" asp-action="Edit" asp-route-id=@entry.Id>Edycja</a>
+						<a>Szczególy</a>
+						<a class="btn btn-danger" asp-action="Delete" asp-route-id=@entry.Id>Usuń</a>
+					</td>
+				</tr>
 			}
-			</tbody>
-		</table>
+		</tbody>
+	</table>
 }
 else
 {
-		<h2 class="text-danger">Na razie brak kontaktów</h2>
+	<h2 class="text-danger">Na razie brak kontaktów</h2>
 }
