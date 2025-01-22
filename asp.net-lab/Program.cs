@@ -12,7 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddDbContext<BookstoreContext>(options =>
 {
-	options.UseSqlite(builder.Configuration["GravityDatabase:ConnectionString"]);
+	options.UseSqlite(builder.Configuration["BookstoreDatabase:ConnectionString"]);
 });
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>

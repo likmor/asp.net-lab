@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace asp.net_lab.Models.Bookstore;
 
 public class OrderModel
 {
+	[HiddenInput] public int CustomerId { get; set; }
+
+	[Display(Name = "Id zamówienia")]
 	public int OrderId { get; set; }
+
+	[Display(Name = "Data zamówienia")]
 
 	public DateTime? OrderDate { get; set; }
 
-	public int? CustomerId { get; set; }
+	[Display(Name = "Status zamówienia")]
 
-	public int? ShippingMethodId { get; set; }
-
-	public int? DestAddressId { get; set; }
 	[Range(1, 6)]
 	public int? StatusId { get; set; }
 }

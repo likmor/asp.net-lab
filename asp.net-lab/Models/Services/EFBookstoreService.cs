@@ -23,8 +23,9 @@ public class EFBookstoreService : IBookstoreService
 			LastName = c.LastName,
 			Email = c.Email,
 			OrderCount = c.CustOrders.Count(),
-			Country = string.Join(", ", c.CustomerAddresses
-				.Select(ca => ca.Address.Country.CountryName).ToList())
+			Country = c.CustomerAddresses
+				.Select(ca => ca.Address.Country.CountryName)
+				.FirstOrDefault()
 		})
 		.OrderBy(x => x.CustomerId)
 		.Skip((page - 1) * size)
@@ -37,10 +38,17 @@ public class EFBookstoreService : IBookstoreService
 
 	}
 
-	public async Task<PagedListAsync<CustOrder>> GetCustomerOrdersByIdAsync(int customerId, int page, int size)
+	public async Task<PagedListAsync<OrderModel>> GetCustomerOrdersByIdAsync(int customerId, int page, int size)
 	{
-		return new PagedListAsync<CustOrder>((page, size) => _context.CustOrders
+		return new PagedListAsync<OrderModel>((page, size) => _context.CustOrders
 		.Where(id => id.CustomerId == customerId)
+		.Select(order => new OrderModel()
+		{
+			OrderId = order.OrderId,
+			OrderDate = order.OrderDate,
+			StatusId = order.OrderHistories.OrderByDescending(x => x.StatusDate).FirstOrDefault().StatusId,
+			CustomerId = customerId,
+		})
 		.OrderBy(x => x.OrderId)
 		.Skip((page - 1) * size)
 		.Take(size)
@@ -61,9 +69,6 @@ public class EFBookstoreService : IBookstoreService
 			{
 				OrderId = x.OrderId,
 				OrderDate = x.OrderDate,
-				CustomerId = x.CustomerId,
-				DestAddressId = x.DestAddressId,
-				ShippingMethodId = x.ShippingMethodId,
 				StatusId = x.OrderHistories.OrderByDescending(x => x.StatusDate).FirstOrDefault().StatusId,
 			}).FirstOrDefaultAsync();
 	}
@@ -90,21 +95,16 @@ public class EFBookstoreService : IBookstoreService
 	}
 	public async Task UpdateOrderAsync(OrderModel model)
 	{
-		var corder = await _context.CustOrders
-			.Where(x => x.OrderId == model.OrderId)
-			.Select(x => new OrderModel
-			{
-				OrderId = x.OrderId,
-				OrderDate = x.OrderDate,
-				CustomerId = x.CustomerId,
-				DestAddressId = x.DestAddressId,
-				ShippingMethodId = x.ShippingMethodId,
-				StatusId = x.OrderHistories.OrderByDescending(x => x.StatusDate).FirstOrDefault().StatusId,
-			}).FirstOrDefaultAsync();
-		if (corder.StatusId >= 4)
+		var lastOrderId = _context?.OrderHistories?
+			.Where(x => x.OrderId == model.OrderId)?
+			.OrderByDescending(x => x.StatusDate)?
+			.FirstOrDefault()?.StatusId;
+
+		if (lastOrderId >= 4)
 		{
 			return;
 		}
+
 		var order = new OrderHistory
 		{
 			OrderId = model.OrderId,

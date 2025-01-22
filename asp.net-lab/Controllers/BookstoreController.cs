@@ -1,9 +1,7 @@
-﻿using asp.net_lab.Models;
-using asp.net_lab.Models.Bookstore;
+﻿using asp.net_lab.Models.Bookstore;
 using asp.net_lab.Models.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace asp.net_lab.Controllers
 {
@@ -15,11 +13,11 @@ namespace asp.net_lab.Controllers
 		{
 			_bookstoreService = gravityService;
 		}
-		public async Task<ActionResult> Index(int page = 1, int size = 10)
+		public async Task<ActionResult> Index(int page = 1, int size = 20)
 		{
 			return View(await _bookstoreService.GetCustomerListPaginatedAsync(page, size));
 		}
-		public async Task<ActionResult> OrderList(int customerId, int page = 1, int size = 10)
+		public async Task<ActionResult> OrderList(int customerId, int page = 1, int size = 20)
 		{
 			return View(await _bookstoreService.GetCustomerOrdersByIdAsync(customerId, page, size));
 		}
@@ -34,7 +32,7 @@ namespace asp.net_lab.Controllers
 		}
 		[HttpPost]
 		[Authorize]
-		public async Task<ActionResult> UpdateOrder(OrderModel model)
+		public async Task<ActionResult> EditOrder(OrderModel model)
 		{
 			if (!ModelState.IsValid)
 			{
